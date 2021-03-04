@@ -168,6 +168,9 @@ const App = () => {
                     <>{result}</>
                 )}
             </div>
+            <footer>
+                Powered by <a target="_blank" href="https://random.org">random.org</a>. Source Code <a target="_blank" href="https://github.com/KayDomrose/rock-paper-scissors">https://github.com/KayDomrose/rock-paper-scissors</a>
+            </footer>
         </div>
     );
 }

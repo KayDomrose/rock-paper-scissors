@@ -103,3 +103,16 @@ button {
     font-weight: bolder;
     letter-spacing: 5px;
 }
+
+footer {
+    position: fixed;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+footer a {
+    color: blue;
+    text-decoration: none;
+}
