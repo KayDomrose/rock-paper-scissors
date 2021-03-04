@@ -1,38 +1,105 @@
-.App {
-  text-align: center;
+:root {
+    --spacing: 20px;
+    --color-text: rgba(0, 0, 0, 0.8);
+    --color-primary: #ff4bd0;
+    --font-size: 20px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+    margin: 0;
+    padding: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+* {
+    box-sizing: border-box;
+    font-family: sans-serif;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+img {
+    display: block;
 }
 
-.App-link {
-  color: #61dafb;
+button {
+    cursor: pointer;
+    outline: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.wrapper {
+    height: 100vh;
+    padding: var(--spacing);
+    padding-top: 20vh;
+    background: orange;
+    transition: all 0.2s ease-in-out;
+}
+
+.wrapper.win {
+    background: #ceffc5;
+}
+.wrapper.lose {
+    background: #fdd5d5;
+}
+.wrapper.draw {
+    background: #f0edff;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 5fr 2fr 5fr;
+    align-items: center;
+    justify-items: center;
+}
+
+.you {
+}
+.you-name {
+    padding: var(--spacing);
+    background: transparent;
+    color: var(--color-text);
+    border: transparent;
+    border-radius: 3px;
+    width: 50%;
+    font-size: var(--font-size);
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 10vh;
+}
+
+.options {
+    display: grid;
+    grid-gap: var(--spacing);
+    margin-top: var(--spacing);
+}
+
+.option {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    grid-row: 1;
+    text-align: center;
+}
+.option-label {
+    margin-top: var(--spacing);
+    text-align: center;
+    font-size: var(--font-size);
+}
+
+.action {
+}
+
+.play-button {
+    padding: var(--spacing);
+    font-size: 100px;
+    background: transparent;
+    border: none;
+}
+
+.result {}
+
+.result-label {
+    text-align: center;
+    font-size: 50px;
+    margin-top: 10vh;
+    text-transform: uppercase;
+    font-weight: bolder;
+    letter-spacing: 5px;
 }
