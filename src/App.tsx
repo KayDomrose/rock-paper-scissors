@@ -53,6 +53,9 @@ const App = () => {
     const [picketGesture, setPicketGesture] = useState<Gesture | null>(null);
     const [result, setResult] = useState<Result | null>(null);
 
+    const urlSearchParams = new window.URLSearchParams(window.location.search);
+    const apiKey = urlSearchParams.get('api_token');
+
     const onChangeName = (event: ChangeEvent<HTMLInputElement>)=> {
         setName(event.target.value);
     }
@@ -75,37 +78,50 @@ const App = () => {
             return;
         }
 
-        const response = await fetch('https://api.random.org/json-rpc/2/invoke', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                id: 1,
-                jsonrpc: "2.0",
-                method: "generateIntegers",
-                params: {
-                    apiKey: "d73541e6-d95d-46b2-b862-23b24e4a7ab6",
-                    n: 1,
-                    min: 0,
-                    max: 2,
-                    replacement: true,
-                    base: 10
-                }
-            })
-        });
-        const body = await response.json();
+        try {
+            const response = await fetch('https://api.random.org/json-rpc/2/invoke', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: 1,
+                    jsonrpc: "2.0",
+                    method: "generateIntegers",
+                    params: {
+                        apiKey,
+                        n: 1,
+                        min: 0,
+                        max: 2,
+                        replacement: true,
+                        base: 10
+                    }
+                })
+            });
+            const body = await response.json();
 
-        for (let i = 0; i < 20; i++) {
-            const fake = options[Math.floor(Math.random() * options.length)];
-            setRandomGesture(fake.value);
-            await sleep(200);
+            for (let i = 0; i < 20; i++) {
+                const fake = options[Math.floor(Math.random() * options.length)];
+                setRandomGesture(fake.value);
+                await sleep(200);
+            }
+            setRandomGesture(null);
+            const picked = body.result.random.data[0] as Gesture;
+            const result = getResult(selectedGesture, picked);
+            setPicketGesture(picked);
+            setResult(result);
+        } catch (e) {
+            console.error(e);
+            alert('FEHLER');
         }
-        setRandomGesture(null);
-        const picked = body.result.random.data[0] as Gesture;
-        const result = getResult(selectedGesture, picked);
-        setPicketGesture(picked);
-        setResult(result);
+    }
+
+    if (apiKey === null) {
+        return (
+            <div>
+                Das hast du wohl den <code>api_token</code> Parameter vergessen.
+            </div>
+        );
     }
 
     return (
